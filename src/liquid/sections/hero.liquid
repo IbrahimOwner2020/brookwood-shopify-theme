@@ -1,0 +1,117 @@
+<style>
+    .slideshow-container {
+        background-image: linear-gradient(rgba(0, 0, 0, 0.205), rgba(0, 0, 0, 0.205));
+        position: relative;
+    }
+
+    /* Hide the images by default */
+    .mySlides {
+        display: none;
+    }
+
+    /* Fading animation */
+    .fade {
+        -webkit-animation-name: fade;
+        -webkit-animation-duration: 2s;
+        animation-name: fade;
+        animation-duration: 2s;
+    }
+
+    @-webkit-keyframes fade {
+        from {
+            opacity: 0;
+        }
+
+        to {
+            opacity: 1;
+        }
+    }
+
+    @keyframes fade {
+        from {
+            opacity: 0;
+        }
+
+        to {
+            opacity: 1;
+        }
+    }
+</style>
+
+<section class="hero slideshow-container">
+    {% for block in section.blocks %}
+        {% capture back_image %}{{ block.settings.back_image | img_url: 'master' }}{% endcapture %}
+        <div class="hero__div mySlides fade" style="background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),url('{{ back_image }}');">
+            <div class="hero__items">
+                <h1 class="hero__title">{{ block.settings.section_title }}</h1>
+                <span class="hero__text">{{ block.settings.hero_text }}</span>
+                <a class="hero__btn" href="{{ block.settings.btn_url }}">{{ block.settings.btn_text }}</a>
+            </div>
+        </div>
+    {% endfor %}
+</section>
+
+{% javascript %}
+    var slideIndex = 0;
+    showSlides();
+
+    function showSlides() {
+        var i;
+        var slides = document.getElementsByClassName("mySlides");
+        for (i = 0; i < slides.length; i++) {
+            slides[i].style.display = "none";
+        }
+        slideIndex++;
+        if (slideIndex > slides.length) {slideIndex = 1}
+        slides[slideIndex-1].style.display = "block";
+        setTimeout(showSlides, 10000); 
+    }
+{% endjavascript %}
+
+{% schema %}
+{
+    "name": "hero",
+    "blocks": [
+        {
+            "name": "person",
+            "type": "person",
+            "settings": [
+                {
+                    "type": "image_picker",
+                    "id": "back_image",
+                    "label": "Background Image"
+                },
+                {
+                    "type": "text",
+                    "id": "section_title",
+                    "label": "Section title",
+                    "default": "Your Page title"
+                },
+                {
+                    "type": "text",
+                    "id": "hero_text",
+                    "label": "section text",
+                    "default": "I'm baby humblebrag lyft mustache vegan pickled ennui shabby chic fanny pack, ugh lomo kale chips helvetica."
+                },
+                {
+                    "type": "text",
+                    "id": "btn_text",
+                    "label": "Button Text",
+                    "default": "Click here"
+                },
+                {
+                    "type": "url",
+                    "id": "btn_url",
+                    "label": "Button url"
+                }
+            ]
+        }
+    ], 
+    "presets": [
+        {
+            "category": "image with text",
+            "name":"hero"
+        }
+    ]
+}
+{% endschema %}

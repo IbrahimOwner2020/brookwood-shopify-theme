@@ -1,0 +1,91 @@
+<style>
+    .testimony__left {
+        background-image: url('{{ section.settings.section_img | img_url: 'master' }}');
+        background-size: cover;
+        background-position: center;
+        position: relative;
+    }
+
+    #ra1:checked ~ .testimony__persons {
+        margin-left: 0;
+    }
+
+    #ra2:checked ~ .testimony__persons {
+        margin-left: -100%;
+    }
+
+    #ra3:checked ~ .testimony__persons {
+        margin-left: -200%;
+    }
+</style>
+
+<section class="testimony">
+    <div class="testimony__left">
+        <h2 class="testimony__title">{{ section.settings.section_title }}</h2>
+    </div>
+    <div class="testimony__right">
+        <input class="radios" type="radio" name="radio" id="ra1" checked>
+        <input class="radios" type="radio" name="radio" id="ra2">
+        <input class="radios" type="radio" name="radio" id="ra3">
+        <div class="testimony__persons">
+            {% for block in section.blocks %}
+                <div class="testimony__person">
+                    <div class="testimony__person-div">
+                        <h3>{{ block.settings.person_name }}</h3>
+                        <span>" {{ block.settings.person_testimony }} "</span>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+        <div class="testimony__navigation">
+            <label class="labelra1" for="ra1"></label>
+            <label class="labelra2" for="ra2"></label>
+            <label class="labelra3" for="ra3"></label>
+        </div>
+    </div>
+</section>
+
+{% schema %}
+{
+    "name": "testimony",
+    "settings": [
+        {
+            "type": "image_picker",
+            "id": "section_img",
+            "label": "Section Image"
+        },
+        {
+            "type": "text",
+            "id": "section_title",
+            "label": "Section Title",
+            "default": "Testimony"
+        }
+    ],
+    "blocks": [
+        {
+            "name": "person",
+            "type": "person",
+            "settings": [
+                {
+                    "type": "text",
+                    "id": "person_name",
+                    "label": "Person name",
+                    "default": "Ibrahim Frank"
+                },
+                {
+                    "type": "text",
+                    "id": "person_testimony",
+                    "label": "Person testimony",
+                    "default": "I'm baby humblebrag lyft mustache vegan pickled ennui shabby chic fanny pack, ugh lomo kale chips helvetica. Jean shorts vegan pitchfork bushwick"
+                }
+            ]
+        }
+    ], 
+    "presets": [
+        {
+            "category": "Testimony with person slide",
+            "name":"Testimony"
+        }
+    ]
+}
+{% endschema %}

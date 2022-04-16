@@ -1,0 +1,77 @@
+<div class="collection__hero">
+    {% if collection.image %}
+        <img src="{{ collection.image | img_url: 'master' }}" alt="{{ collection.title }}">
+    {% else %}
+        <img src="{{ section.settings.section_img | img_url: 'master' }}" alt="{{ collection.title }}">
+    {% endif %}
+    <div class="collection__details">
+        <div class="collection__details-items">
+            <h2 class="collectionList__title">{{ collection.title }}</h2>
+            <span class="collectionList__description">{{ collection.description }}</span>
+        </div>
+    </div>
+</div>
+<section class="collection">
+        {%- paginate collection.products by 6 -%}
+            <div class="featured-product__items">
+                {%- for product in collection.products -%}
+                    <div class="featured-product__product">
+                        <a href="{{ product.url }}">
+                            <img src="{{ product.featured_image | img_url: 'master'}}" alt="{{ product.title }}">
+                        </a>
+                        <a href="{{ product.url }}">
+                            <h3>{{ product.title }}</h3>
+                        </a>
+                        <div class="featured-product__prices">
+                            <span class="featured-product__prices-discounted">{{ product.price | money_without_trailing_zeros }}</span>
+                            <span class="featured-product__prices-real">{{ product.compare_at_price | money_without_trailing_zeros }}</span>
+                        </div>
+                        {% if product.available %}
+                        {% form 'product', product %}
+                            <button class="featured-product__submit-btn" type="submit">Add To Cart</button>
+                        {% endform %}
+                        {% else %}
+                            <button class="featured-product__submit-btn2" type="submit">Sold Out</button>
+                        {% endif %}
+                    </div>
+                {%- endfor -%}
+            </div>
+            <div class="paginate">
+                {{ paginate | default_pagination: next: 'next', previous: 'back'}}
+            </div>
+        {%- endpaginate -%}
+        <!-- {% for product in collection.products %}
+            <div class="featured-product__product">
+                <a href="{{ product.url }}">
+                    <img src="{{ product.featured_image | img_url: 'master'}}" alt="{{ product.title }}">
+                </a>
+                <a href="{{ product.url }}">
+                    <h3>{{ product.title }}</h3>
+                </a>
+                <div class="featured-product__prices">
+                    <span class="featured-product__prices-discounted">{{ product.price | money_without_trailing_zeros }}</span>
+                    <span class="featured-product__prices-real">{{ product.compare_at_price | money_without_trailing_zeros }}</span>
+                </div>
+                {% if product.available %}
+                {% form 'product', product %}
+                    <button class="featured-product__submit-btn" type="submit">Add To Cart</button>
+                {% endform %}
+                {% else %}
+                    <button class="featured-product__submit-btn2" type="submit">Sold Out</button>
+                {% endif %}
+            </div>
+        {% endfor %} -->
+</section>
+
+{% schema %}
+{
+    "name": "collection",
+    "settings": [
+        {
+            "type": "image_picker",
+            "id": "section_img",
+            "label": "Collection Image"
+        }
+    ]
+}
+{% endschema %}

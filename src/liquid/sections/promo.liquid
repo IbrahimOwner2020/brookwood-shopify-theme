@@ -1,0 +1,69 @@
+{% assign product_item = all_products[section.settings.section_product] %}
+    <style>
+        .promo {
+            background-image: url('{{ product_item.featured_image | img_url: 'master' }}');
+            background-position: center;
+            background-size: cover;
+        }
+    </style>
+    <section class="promo">
+        <div class="promo__div">
+            <div class="promo__product">
+                <div class="promo__top">
+                    <h3 class="promo__title">{{ product_item.title }}</h3>
+                    <div class="promo__prices">
+                        <span class="promo__prices-discounted">{{ product_item.price | money_without_trailing_zeros }}</span>
+                        <span class="promo__prices-real">{{ product_item.compare_at_price | money_without_trailing_zeros }}</span>
+                    </div>
+                    {% form 'product', product_item %}
+                        <div class="promo__btn">
+                            <button class="promo__submit-btn" type="submit">Add To Cart</button>
+                        </div>
+                    {% endform %}
+                </div>
+                <div class="promo__bottom">
+                    <div class="day">
+                        <span class="day__no">00</span>
+                        <span class="day__value">DAYS</span>
+                    </div>
+                    <span class="colon">:</span>
+                    <div class="day">
+                        <span class="day__no">00</span>
+                        <span class="day__value">HOUR</span>
+                    </div>
+                    <span class="colon">:</span>
+                    <div class="day">
+                        <span class="day__no">00</span>
+                        <span class="day__value">MINS</span>
+                    </div>
+                    <span class="colon">:</span>
+                    <div class="day">
+                        <span class="day__no">00</span>
+                        <span class="day__value">SECS</span>
+                    </div>
+                </div>
+            </div>
+            {% for image in product_item.images %}
+                <img src="{{ image | img_url: 'master' }}" alt="product images">
+            {% endfor %}
+        </div>
+    </section>
+{% schema %}
+{
+    "name": "promo",
+    "settings": [
+        {
+            "type": "product",
+            "id": "section_product",
+            "label": "Featured Product",
+            "info": "Choose a product that will apear in this section"
+        }
+    ],
+    "presets": [
+        {
+            "category": "Product promotion",
+            "name":"Discounted product"
+        }
+    ]
+}
+{% endschema %}

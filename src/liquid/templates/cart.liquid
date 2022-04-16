@@ -1,0 +1,66 @@
+<section class="cart">
+    <h2 class="cart__title">Your Shopping</h2>
+    <form action="/cart" method="post" class="cart__wrapper">
+        <table class="cart__table">
+            <thead class="cart__table-head">
+                <tr>
+                    <th>&nbsp;</th>
+                    <th>product</th>
+                    <th>price</th>
+                    <th>quantity</th>
+                    <th>total</th>
+                    <th>&nbsp;</th>
+                </tr>
+            </thead>
+            <tbody class="cart__table-body">
+                {% for line_item in cart.items %}
+                    <tr>
+                        <td>
+                            <img class="cart__img" src="{{ line_item.image | img_url: 'master' }}" alt="{{ line_item.image.alt }}" >
+                        </td>
+                        <td>
+                            <a href="{{ line-item.url }}">
+                                <h3 class="line-item__title">{{ line_item.title }}</h3>
+                            </a>
+                        </td>
+                        <td>
+                            <span class="line-item__price">{{ line_item.price | money_without_trailing_zeros }}</span>
+                        </td>
+                        <td>
+                            <input
+                                type="text" 
+                                name="updates[]"
+                                size="4"
+                                id="updates_{{ line_item.id }}"
+                                value="{{ line_item.quantity }}"
+                            />
+                        </td>
+                        <td>
+                            <span class="line-item__price">{{ line_item.final_line_price | money_without_trailing_zeros }}</span>
+                        </td>
+                        <td>
+                            <a href="/cart/change?line={{ forloop.index }}&quantity=0" class="line-item__remove">
+                                <img src="{{ 'trash.svg' | asset_url }}" alt="search icon">
+                            </a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <div class="cart__details">
+            <div class="cart__details-left">
+                <a href="collections/all">continue shopping</a>
+            </div>
+            <div class="cart__details-right">
+                <div class="cart__total">
+                    <strong class="cart__total-text">Total:</strong>
+                    <span class="cart__total-price">{{ cart.total_price | money }}</span>
+                </div>
+                <div class="cart__btns">
+                    <button class="cart__button" type="submit">Update Cart</button>
+                    <button class="cart__button" type="submit" name="checkout">Checkout</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</section>

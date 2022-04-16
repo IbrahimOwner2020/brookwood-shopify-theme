@@ -1,0 +1,54 @@
+<section class="featured-product">
+    {%- assign collection = collections[section.settings.featured_collection] -%}
+    <h2 class="featured-product__title">{{ collection.title }}</h2>
+    <div class="featured-product__items">
+        {% for product in collection.products %}
+            <div class="featured-product__product">
+                <a href="{{ product.url }}">
+                    <img src="{{ product.featured_image | img_url: 'master'}}" alt="{{ product.title }}">
+                </a>
+                <a href="{{ product.url }}">
+                    <h3>{{ product.title }}</h3>
+                </a>
+                <div class="featured-product__prices">
+                    <span class="featured-product__prices-discounted">{{ product.price | money_without_trailing_zeros }}</span>
+                    <span class="featured-product__prices-real">{{ product.compare_at_price | money_without_trailing_zeros }}</span>
+                </div>
+                {% if product.available %}
+                {% form 'product', product %}
+                    <div class="featured-product__variant">
+                        <select name="id" id="product-color" class="product-tile__btn">
+                            {% for variant in product.variants %}
+                                <option value="{{ variant.id }}">{{ variant.title }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <button class="featured-product__submit-btn" type="submit">Add To Cart</button>
+                {% endform %}
+                {% else %}
+                    <button class="featured-product__submit-btn2" type="submit">Sold Out</button>
+                {% endif %}
+            </div>
+        {% endfor %}
+    </div>
+</section>
+
+{% schema %}
+{
+    "name": "featured-product",
+    "settings": [
+        {
+            "type": "collection",
+            "id": "featured_collection",
+            "label": "Featured Collection",
+            "info": "Select your collection that contains the featured products"
+        }
+    ],
+    "presets": [
+        {
+            "category": "featured pruducts",
+            "name":"Featured Products"
+        }
+    ]
+}
+{% endschema %}

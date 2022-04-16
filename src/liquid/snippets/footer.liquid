@@ -1,0 +1,30 @@
+{%- comment -%}
+    passing the following arguments
+
+    -settings
+{%- endcomment -%}
+
+<footer class="footer">
+    <div class="footer__div">
+        <div class="footer__menu">
+            <h3 class="footer__menu-head">{{ settings.footer_head }}</h3>
+            <ul class="footer__menu-list">
+            {% for link in linklists[settings.footer_link].links %}
+                <li class="footer__menu-item">
+                    <a class="footer__menu-link" href= "{{ link.url }}">{{ link.title }}</a>
+                </li>
+            {% endfor %}
+            </ul>
+        </div>
+        <div class="footer__newsletter">
+            <h2 class="footer__newsletter-title">{{ settings.newsletter_title }}</h2>
+            {% form 'customer' %}
+            <input class="footer__newsletter-input" type="text" name="contact[email]"  placeholder="Email Address" >
+                <button class="featured-product__submit-btn" type="submit">Subscribe</button>
+            {% endform %}
+        </div>
+    </div>
+</footer>
+<div class="copyright">
+    <span class="copyright__text">Copyright &copy; {{ settings.copyright_text }}</span>
+</div>

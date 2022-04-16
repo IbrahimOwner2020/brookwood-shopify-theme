@@ -1,0 +1,52 @@
+<section class="our">
+    <div class="our__left">
+        <img class="our__img" src="{{ section.settings.section_img | img_url: 'master' }}" alt="section image">
+    </div>
+    <div class="our__right">
+        <h2 class="our__title">{{ section.settings.section_title }}</h2>
+        <span class="our__text">{{ section.settings.section_text }}</span>
+        <a href="{{ section.settings.btn_url }}" class="our__btn">{{ section.settings.btn_text }}</a>
+    </div>
+</section>
+
+{% schema %}
+{
+    "name": "Our Collection",
+    "settings": [
+        {
+            "type": "image_picker",
+            "id": "section_img",
+            "label": "Section Image"
+        },
+        {
+            "type": "text",
+            "id": "section_title",
+            "label": "Section Title",
+            "default": "Your title"
+        },
+        {
+            "type": "text",
+            "id": "section_text",
+            "label": "Section Text",
+            "default": "Sartorial blog godard vape 8-bit. Messenger bag hashtag pickled brunch tousled"
+        },
+        {
+            "type": "url",
+            "id": "btn_url",
+            "label": "Button Url"
+        },
+        {
+            "type": "text",
+            "id": "btn_text",
+            "label": "Button Text",
+            "default": "Click here"
+        }
+    ],
+    "presets": [
+        {
+            "category": "Image with some discriptions",
+            "name": "Our Collection"
+        }
+    ]
+}
+{% endschema %}

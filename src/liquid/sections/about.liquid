@@ -1,0 +1,65 @@
+<section class="about">
+    <h2 class="about__title">{{ section.settings.section_title }}</h2>
+    <span class="about__text">{{ section.settings.section_text }}</span>
+    <div class="about__items">
+        {% for block in section.blocks %}
+            <div class="about__item">
+                <img class="about__img" src="{{ block.settings.about_img | img_url: 'master' }}" alt="{{ block.settings.about_title }}">
+                <h3>{{ block.settings.about_title }}</h3>
+                <span>{{ block.settings.about_details }}</span>
+            </div>
+        {% endfor %}
+    </div>
+</section>
+
+{% schema %}
+{
+    "name": "about",
+    "settings": [
+        {
+            "type": "text",
+            "id": "section_title",
+            "label": "Section Title",
+            "default": "About"
+        },
+        {
+            "type": "text",
+            "id": "section_text",
+            "label": "Section Text",
+            "default": "I'm baby humblebrag lyft mustache vegan pickled ennui shabby chic"
+        }
+    ],
+    "blocks": 
+    [
+        {
+            "name": "about",
+            "type": "about",
+            "settings": [
+                {
+                    "type": "image_picker",
+                    "id": "about_img",
+                    "label": "About Image"
+                },
+                {
+                    "type": "text",
+                    "id": "about_title",
+                    "label": "About title",
+                    "default": "Benefit"
+                },
+                {
+                    "type": "text",
+                    "id": "about_details",
+                    "label": "About details",
+                    "default": "I'm baby humblebrag lyft mustache vegan"
+                }
+            ]
+        }
+    ],
+    "presets": [
+        {
+            "category": "About section",
+            "name":"About"
+        }
+    ]
+}
+{% endschema %}

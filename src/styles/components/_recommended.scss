@@ -1,0 +1,62 @@
+.recommended {
+    max-width: 1150px;
+    margin: 2rem auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+    grid-gap: 2rem;
+    grid-auto-rows: auto;
+
+    @media only screen and (max-width: 1180px) {
+        margin: 2rem 1rem;
+    }
+
+    &__item {
+        text-decoration: none;
+
+        & img {
+            width: 100%;
+            height: 230px;
+            object-fit: cover;
+            object-position: center;
+        }
+
+        & h2 {
+            font-size: 1.4rem;
+            font-family: $font-secondary;
+            color: $color-black-3;
+            font-weight: 500;
+        }
+    }
+
+    &__title {
+        font-size: 1.4rem;
+        font-family: $font-secondary;
+        color: $color-black-3;
+        font-weight: 500;
+        margin-top: 4rem;
+        text-align: center;
+    }
+
+    &__prices {
+        display: flex;
+        align-items: flex-end;
+        justify-content: flex-start;
+        margin-top: .5rem;
+    }
+
+    &__price1 {
+        font-size: .9rem;
+        font-weight: 500;
+        font-family: $font-secondary;
+        color: $color-red-1;
+    }
+
+    &__price2 {
+        text-decoration: line-through;
+        font-size: .9rem;
+        font-weight: 500;
+        font-family: $font-secondary;
+        color: $color-black-3;
+        margin-left: 1rem;
+    }
+}

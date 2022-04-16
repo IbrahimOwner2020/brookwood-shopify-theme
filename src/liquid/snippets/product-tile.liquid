@@ -1,0 +1,46 @@
+{%- comment -%}
+    Requires the following argument
+
+    - product
+{%- endcomment -%}
+
+<section class="product-tile">
+    <a href="{{ product.url }}">
+        <img 
+            class="product-tile__image" 
+            src="{{ product.featured_image | img_url: 'master' }}" 
+            alt="{{ product.featured_image.alt }}"
+        >
+    </a>
+    <div class="product-tile__info">
+        <a href="{{ product.url }}">
+            <h3 class="product-tile__title">{{ product.title }}</h3>
+        </a> 
+        <div class="product-tile__prices">
+            <span class="product-tile__price1">
+                {{ product.price | | money_without_trailing_zeros }}
+            </span>
+            <span class="product-tile__price2">
+                {{ product.compare_at_price | | money_without_trailing_zeros }}
+            </span>
+        </div>
+        <span class="product-tile__description">{{ product.description }}</span>
+        {% if product.available %}
+        <!-- {% form 'product', product %}
+            <button class="product-tile__btn" type="submit">Add To Cart</button>
+        {% endform %} -->
+        {% form 'product', product %}
+            <div class="product-form">
+                <select name="id" id="product-color" class="product-tile__btn">
+                    {% for variant in product.variants %}
+                        <option value="{{ variant.id }}">{{ variant.title }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <button class="product-tile__btn" type="submit">Add To Cart</button>
+        {% endform %}
+        {% else %}
+            <button class="product-tile__btn-1" type="submit">Sold Out</button>
+        {% endif %}
+    </div>
+</section>

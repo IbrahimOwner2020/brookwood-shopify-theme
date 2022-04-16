@@ -1,0 +1,80 @@
+{%- assign counter = 0 -%}
+{%- assign break_at = section.settings.number_of_products | plus: 0 -%}
+{%- assign current_product = product -%}
+
+{%- capture related_items -%}
+    <div class="recommended">
+        {%- for product in collections.all.products -%}
+            {%- unless product.handle == current_product.handle -%}
+                {%- if product.tags contains section.settings.related_tag -%}
+                    <a href="{{ product.url | within: collection }}" class="recommended__item">
+                        <img src="{{ product.featured_image.src | img_url: 'master' }}" alt="{{ product.title }}">
+                        <h2>{{ product.title }}</h2>
+                        <div class="recommended__prices">
+                            <span class="recommended__price1">
+                                {{ product.price | money_without_trailing_zeros }}
+                            </span>
+                            <span class="recommended__price2">
+                                {{ product.compare_at_price | money_without_trailing_zeros }}
+                            </span>
+                        </div>
+                    </a>
+                    {%- assign counter = counter | plus: 1 -%}
+                    {%- if counter == break_at -%}
+                        {%- break -%}
+                    {%- endif -%}
+                {%- endif -%}
+            {%- endunless -%}
+        {%- endfor -%}
+    </div>
+{%- endcapture -%}
+
+{%- assign related_items = related_items | trim -%}
+{%- unless related_items == blank -%}
+    <aside>
+        {%- if section.settings.heading -%}
+            <h2 class="recommended__title">{{ section.settings.heading }}</h2>
+        {%- endif -%}
+
+        {{ related_items }}
+    </aside>
+{%- endunless -%}
+
+{% schema %}
+{
+    "name": "Recommended products",
+    "settings": [
+        {
+            "type": "text",
+            "id": "heading",
+            "label": "Heading"
+        },
+        {
+            "type": "text",
+            "id": "related_tag",
+            "label": "Tag",
+            "info" : "The tag determines which products show as related products."
+        },
+        {
+            "type": "select",
+            "id": "number_of_products",
+            "label": "Number of products to show",
+            "default": "4",
+            "options": [
+                {
+                    "value": "4",
+                    "label": "4"
+                },
+                {
+                    "value": "8",
+                    "label": "8"
+                },
+                {
+                    "value": "12",
+                    "label": "12"
+                }
+            ]
+        }
+    ]
+}
+{% endschema %}

@@ -1,0 +1,63 @@
+.hero {
+
+    &__div {
+        padding: 16rem 7rem;
+        background-size: cover;
+        background-position: center;
+
+        @media only screen and (max-width: 1024px) {
+            padding: 16rem 4rem;
+        }
+
+        @media only screen and (max-width: 768px) {
+            padding: 16rem 1rem;
+        }
+    }
+
+    &__items {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        @media only screen and (max-width: 768px) {
+            align-items: flex-start;
+        }
+    }
+
+    &__title {
+        font-size: 4.5rem;
+        color: $color-white;
+        font-family: $font-primary;
+        font-weight: 400;
+        margin-bottom: 1.875rem;
+
+        @media only screen and (max-width: 375px) {
+            font-size: 3.9rem;
+        }
+    }
+
+    &__text {
+        font-size: 1.125rem;
+        color: $color-white;
+        font-family: $font-secondary;
+        font-weight: 400;
+    }
+
+    &__btn {
+        text-decoration: none;
+        color: $color-white;
+        border: 2px solid $color-white;
+        background-color: transparent;
+        font-size: 1.125rem;
+        padding: 5px 25px;
+        font-weight: 400;
+        font-family: $font-secondary;
+        text-transform: uppercase;
+        margin-top: 2rem;
+
+        &:hover {
+            color: $color-black-1;
+            background-color: $color-white;
+        }
+    }
+}
